@@ -12,7 +12,7 @@ NCAAF_L1 <- NCAAF_L1 %>% mutate(
   Opp_ELO = 0,
   Result = ifelse(Result == "W", 1, Result),
   Result = ifelse(Result == "L", 0, Result),
-  Result = ifelse(Result == "D", 0.5, Result),
+  Result = ifelse(Result == "T", 0.5, Result),
   Result = as.numeric(Result)
 )
 
