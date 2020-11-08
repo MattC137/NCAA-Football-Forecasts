@@ -115,7 +115,7 @@ sum(Results_2019$win_prob_glm_1 == Results_2019$Result )/nrow(Results_2019)
 #### Next Weeks Games ####
 
 NCAAF_L1_Future$Date <- as.Date(NCAAF_L1_Future$Date, origin = "1970-01-01")
-NCAAF_This_Week <- NCAAF_L1_Future %>% filter(Date > "2020-11-01", Date <= "2020-11-08") %>% 
+NCAAF_This_Week <- NCAAF_L1_Future %>% filter(Date > "2020-11-08", Date <= "2020-11-15") %>% 
   select(Date, Season, Team, Opponent, Home, Neutral_Location, Game_ID)
 
 NCAAF_This_Week <- NCAAF_This_Week %>% 
