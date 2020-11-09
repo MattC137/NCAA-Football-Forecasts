@@ -7,6 +7,13 @@ NCAAF_L1_Teams <- read_csv("https://raw.githubusercontent.com/MattC137/Open_Data
 
 #### Setup ####
 
+NCAAF_L1_Future <- NCAAF_L1 %>% 
+  filter(Played == FALSE, Game_ID != "Canceled", Game_ID != "Postponed")
+
+NCAAF_L1 <- NCAAF_L1 %>% 
+  filter(Played == TRUE) %>% 
+  arrange(Date, Game_ID)
+
 NCAAF_L1 <- NCAAF_L1 %>% mutate(
   ELO = 0,
   Opp_ELO = 0,
@@ -19,13 +26,6 @@ NCAAF_L1 <- NCAAF_L1 %>% mutate(
 NCAAF_L1_Teams <- NCAAF_L1_Teams %>% mutate(
   ELO = ifelse(FBS == 1, 1500, 1200),
 )
-
-NCAAF_L1_Future <- NCAAF_L1 %>% 
-  filter(Played == FALSE, Game_ID != "Canceled", Game_ID != "Postponed")
-
-NCAAF_L1 <- NCAAF_L1 %>% 
-  filter(Played == TRUE) %>% 
-  arrange(Date, Game_ID)
 
 #### ELO ####
 
@@ -77,7 +77,7 @@ for(i in 1:nrow(NCAAF_L1)){
 }
 
 View(NCAAF_L1_Teams %>% filter(FBS == 1) %>% arrange(desc(ELO)) %>% top_n(25))
-  
+
 #### Naive Wins ####
 
 NCAAF_L1 <- NCAAF_L1 %>% mutate(
@@ -133,3 +133,4 @@ NCAAF_This_Week <- NCAAF_This_Week %>% mutate(
 
 NCAAF_This_Week$Spread_Pred_lm_1 <- predict(spread_lm_1, newdata = NCAAF_This_Week)
 NCAAF_This_Week$win_prob_glm_1 <- predict(win_prob_glm_1, newdata = NCAAF_This_Week, type = "response")
+View(NCAAF_This_Week %>% arrange(desc(win_prob_glm_1)))
